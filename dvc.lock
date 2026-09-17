@@ -1,0 +1,47 @@
+schema: '2.0'
+stages:
+  prepare_data:
+    cmd: python3 code/datasets/prepare_data.py
+    deps:
+    - path: code/datasets/prepare_data.py
+      hash: md5
+      md5: 59dcab4e17fcd6fac8accfcc28f7bbe9
+      size: 1353
+    - path: data/raw/winequality-red.csv
+      hash: md5
+      md5: 2daeecee174368f8a33b82c8cccae3a5
+      size: 84199
+      isexec: true
+    outs:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: f8a609a3f59c1a9c88ceb054ebf10a99
+      size: 11366
+    - path: data/processed/train.csv
+      hash: md5
+      md5: d44169bfe269d4d019c7a46f8e343fa7
+      size: 44796
+  train_model:
+    cmd: python3 code/models/train.py
+    deps:
+    - path: code/models/train.py
+      hash: md5
+      md5: a732fbc150e1b149515d75638323b1ce
+      size: 2114
+    - path: data/processed/test.csv
+      hash: md5
+      md5: f8a609a3f59c1a9c88ceb054ebf10a99
+      size: 11366
+    - path: data/processed/train.csv
+      hash: md5
+      md5: d44169bfe269d4d019c7a46f8e343fa7
+      size: 44796
+    outs:
+    - path: metrics/metrics.json
+      hash: md5
+      md5: 15a000f093ebad6657c886f88889ef2c
+      size: 63
+    - path: models/model.joblib
+      hash: md5
+      md5: 04c370ed982ff391d8af5b8a41ec8c9e
+      size: 2089993
